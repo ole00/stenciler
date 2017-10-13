@@ -68,7 +68,7 @@ the pad definition from the stencil, not from the .png image itself.
 13) press F2 to save work in progres
 14) press F10 to export the svg
 15) press Esc to exit
-16) the exported file wil have the .svg extension, so open it in your favourite viewer 
+16) the exported file will have the .svg extension, so open it in your favourite viewer 
 and inspect it. If the dimensions don't match ensure your PNG file is exported in 600 
 dpi, or alternatively set the dpi to stenciler via parameter -dpi X. 
 17) If you need .dxf format then open the exported .svg in inkscape and save it as 'Desktop cutting Plotter
