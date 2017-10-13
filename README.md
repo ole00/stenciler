@@ -7,7 +7,7 @@ Some cad software allows you to export the data of the pads for SMT stencils, so
 this tool might come handy if you can export the board design into high resolution image (.png). 
 
 Stenciler allows you to display a .png file you've exported from geda pcb program (or other designer app)
-and define a pads that will be cut off of the stencil foil. Once you've defined all pads you can either
+and define pads that will be cut out of the stencil foil. Once you've defined all pads you can either
 save or/and export the .svg file. If you need a .dxf file use inkscape program to open your .svg and
 save it to .dxf.
 
