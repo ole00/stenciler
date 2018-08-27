@@ -41,7 +41,7 @@ import javax.imageio.ImageIO;
 
 public class Main extends WindowAdapter implements Runnable, WindowListener {
 	
-	static final String VERSION = "0.1";
+	static final String VERSION = "0.2";
 	
 	static Options opt;
 	static Frame frame;

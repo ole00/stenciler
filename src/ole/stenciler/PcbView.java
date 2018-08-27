@@ -46,6 +46,7 @@ public class PcbView extends Canvas implements KeyListener, MouseListener, Mouse
 	private int screenH;
 	private BufferedImage imageFull;
 	private BufferedImage imageZoom;
+	private BufferedImage canvas;
 	private boolean forceRepaint;
 	private boolean repaintBackground;
 	private int paintX;
@@ -70,13 +71,14 @@ public class PcbView extends Canvas implements KeyListener, MouseListener, Mouse
 		setSize(width, height);
 		this.imageFull= image;
 		imageZoom = scaleImage();
+		canvas = new BufferedImage(width, height, BufferedImage.TYPE_INT_ARGB);
 		repaintBackground = true;
 	}
 	
 	private BufferedImage scaleImage() {
 		int w2 = imageFull.getWidth() / 2;
 		int h2 = imageFull.getHeight() / 2;
-		BufferedImage result = new BufferedImage(w2, h2, BufferedImage.TYPE_4BYTE_ABGR_PRE);
+		BufferedImage result = new BufferedImage(w2, h2, BufferedImage.TYPE_INT_ARGB);
 		Graphics2D g = (Graphics2D) result.getGraphics();
 		g.drawImage(imageFull, 0, 0, w2, h2, 0, 0, imageFull.getWidth(), imageFull.getHeight(), null);
 		return result;
@@ -96,7 +98,8 @@ public class PcbView extends Canvas implements KeyListener, MouseListener, Mouse
 		}
 
 		BufferedImage image = zoom == 1 ? imageFull : imageZoom;
-		
+		//get canvas graphics
+		Graphics cg = canvas.getGraphics();
 
 		//screen is wider than picture width -> center
 		if (screenW - image.getWidth() > 0) {
@@ -128,13 +131,16 @@ public class PcbView extends Canvas implements KeyListener, MouseListener, Mouse
 	
 		if (repaintBackground) {
 			repaintBackground = false;
-			g.setColor(getBackground());
-			g.fillRect(0, 0, getWidth(), getHeight());
+			cg.setColor(getBackground());
+			cg.fillRect(0, 0, getWidth(), getHeight());
 		}		
-		g.drawImage(image, paintX, paintY, null);
+		cg.drawImage(image, paintX, paintY, null);
 		if (layer != null) {
-			layer.paint(g, paintX, paintY, zoom);
+			layer.paint(cg, paintX, paintY, zoom);
 		}
+		
+		// draw canvas to the screen
+		g.drawImage(canvas,  0, 0, null);
 	}
 	
 	public void update(Graphics g) {
